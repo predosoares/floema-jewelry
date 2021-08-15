@@ -1,0 +1,32 @@
+extends ../base.pug
+
+block variables
+  - var template = "collections"
+
+block content
+  .collections
+    .collections__wrapper
+      .collections__titles
+        each collection, index in collections
+          .collections__titles__label!=`${home.data.collection}<br/>${ParseToNumbers(index)}`
+          .collections__titles__title=collection.data.title
+
+      .collections__gallery
+        .collections__gallery__wrapper
+          each collection in collections
+            each product in collection.data.products
+              a.collections__gallery__link(href=Link(product.products_product))
+                figure.collections__gallery__media
+                  img.collections__galllery__media__image(alt=product.products_product.data.image.alt src=product.products_product.data.image.url)
+
+      .collections__content
+        each collection, index in collections
+          article.collections__article(class=`${index === 0 ? 'collections__article--active' : 'collections__article'}`)
+            h2.collections__title=`${collection.data.title} ${home.data.collection}`
+            p.collections__description=collection.data.description
+         
+      .collections__mobile
+        each collection, index in collections
+          .collections__mobile__item
+            .collections__mobile__item__label!=`${home.data.collection}<br/>${ParseToNumbers(index)}`
+            .collections__mobile__item__title=collection.data.title

@@ -1,0 +1,22 @@
+.about {
+  background-color: $color-cadet-blue;
+  color: $color-bright-gray;
+}
+
+.about__wrapper {
+
+}
+
+.about__title{
+  @extend %title-100;
+
+  max-width: 30ch;
+  margin: auto;
+  text-align: center;
+
+
+  @include media('<phone') {
+    max-width: 10ch;
+  }
+}
+

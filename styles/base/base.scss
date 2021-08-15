@@ -1,0 +1,41 @@
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: calc(100vw / 1920 * 10);
+  line-height: 1;
+
+  -webkit-font-smooth: antialiased;
+
+  @include media('<phone'){
+    font-size: calc(100vw / 750 * 10);
+  }
+}
+
+body {
+  @extend %description-16;
+  font-family: $font-suisse-bp;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+img {
+  vertical-align: middle;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  color: inherit;
+  cursor: pointer;
+  font-weight:normal;
+  font-family: $font-suisse-bp;
+}
