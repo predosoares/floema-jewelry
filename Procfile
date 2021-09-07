@@ -1,1 +1,1 @@
-web: yarn backend:build
+web: yarn production
