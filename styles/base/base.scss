@@ -9,7 +9,7 @@
 html {
   @extend %cover;
 
-  font-size: calc(100vw / 1680 * 10);
+  font-size: calc(100vw / 1920 * 10);
   line-height: 1;
 
   // Smooth scroll effect
