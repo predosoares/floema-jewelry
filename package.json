@@ -6,6 +6,7 @@
   "license": "ISC",
   "private": false,
   "engines": {
+    "node": "16.x",
     "yarn": "1.22.10"
   },
   "scripts": {
@@ -15,7 +16,7 @@
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
     "dev": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
     "build": "webpack  --progress --config webpack.config.build.js",
-    "start": "node.js"
+    "start": "node app.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
