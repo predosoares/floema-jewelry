@@ -19,7 +19,6 @@ app.use(express.static(path.join(__dirname, 'public')))
 const Prismic = require('@prismicio/client')
 const PrismicDOM = require('prismic-dom')
 const UAParser = require('ua-parser-js')
-const { homedir } = require('os')
 
 const initApi = (req) => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
@@ -152,6 +151,6 @@ app.get('/detail/:uid', async (req, res) => {
 })
 
 
-app.listen(PORT,  () => {
-  console.log(`App listening to port ${PORT} 🚀`)
+app.listen(process.env.PORT || PORT,  () => {
+  console.log(`App listening to port ${process.env.PORT || PORT} 🚀`)
 })
