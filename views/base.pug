@@ -33,11 +33,13 @@ html(lang="en")
     style
       include ../public/main.css
 
-  body
+  body(class=isDesktop ? "desktop" : isTablet ? "tablet" : isPhone ? 'phone' : '')
     include ./partials/preloader
     include ./partials/navigation
 
     .content#content(data-template=template)
       block content
+
+    script window.ASSETS = !{JSON.stringify(assets).replace(/<\//g, "<\\/")}
 
     script(src='main.js')

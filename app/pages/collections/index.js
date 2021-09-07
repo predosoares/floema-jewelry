@@ -5,7 +5,10 @@ export default class Collections extends Page {
   {
     super({
       id: 'collections',
-      element: '.collections'
+      element: '.collections',
+      elements: {
+        navigation: document.querySelector('.navigation'),
+      }
     })
   }
 }

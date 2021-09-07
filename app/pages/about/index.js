@@ -5,7 +5,12 @@ export default class About extends Page {
   {
     super({
       id: 'about',
-      element: '.about'
+      element: '.about',
+      elements: {
+        navigaton: document.querySelector('.navigation'),
+        wrapper: '.about__wrapper',
+        title: '.about__title'
+      }
     })
   }
 }

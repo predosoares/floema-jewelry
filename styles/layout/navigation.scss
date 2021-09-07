@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-.navigation__link {
+.navigation__link {  
   position: absolute;
   left: 4rem;
   top: 4rem;
@@ -18,6 +18,13 @@
   font-size: 0;
 
   pointer-events: auto;
+
+  transition: opacity 0.4s ease;
+
+  &:hover {
+    opacity: 0.5;
+  }
+
 
   @include media('<phone') {
     left: 5rem;
@@ -44,6 +51,7 @@
 }
 
 .navigation__list__link {
+  @extend %link--hidden;
   @extend %title-20;
   display: block;
 }

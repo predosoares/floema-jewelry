@@ -3,7 +3,6 @@ require('dotenv').config()
 const logger = require('morgan')
 const express = require('express')
 const errorHandler = require('errorhandler')
-const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const path = require('path')
 
@@ -19,6 +18,8 @@ app.use(express.static(path.join(__dirname, 'public')))
 
 const Prismic = require('@prismicio/client')
 const PrismicDOM = require('prismic-dom')
+const UAParser = require('ua-parser-js')
+const { homedir } = require('os')
 
 const initApi = (req) => {
   return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
@@ -41,9 +42,16 @@ const handleLinkResolver = (doc) => {
 
 
 app.use((req, res, next) => {
+  const ua = UAParser(req.headers['user-agent'])
+
+  res.locals.isDesktop = ua.device.type === undefined
+  res.locals.isPhone = ua.device.type === 'mobile'
+  res.locals.isTablet = ua.device.type === 'tablet'
+
   res.locals.Link = handleLinkResolver
 
   res.locals.PrismicDOM = PrismicDOM
+
   res.locals.ParseToNumbers = index => {
     return index === 0 ? 'One' : index === 1 ? 'Two' : index === 2 ? 'Three' : index === 3 ? 'Four' : ''
   }
@@ -56,60 +64,74 @@ app.set('view engine', 'pug')
 
 
 const handleRequest = async api => {
+  const about = await api.getSingle('about')
+  const home = await api.getSingle('h')
   const meta = await api.getSingle('metadata')
   const navigation = await api.getSingle('navigation')
   const preloader = await api.getSingle('preloader')
+  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
+    fetchLinks: 'product.image'
+  })
+
+  let assets = []
+
+  about.data.gallery.forEach(item => {
+    assets.push(item.image.url)
+  })
+
+  about.data.body.forEach(section => {
+    if (section.slice_type === 'gallery') {
+      section.items.forEach(item => {
+        assets.push(item.image.url)
+      })
+    }
+  })
+
+  collections.forEach(collection => {
+    collection.data.products.forEach(item => {
+      assets.push(item.products_product.data.image.url)
+    })
+  })
+
+  home.data.gallery.forEach(item => {
+    assets.push(item.image.url)
+  })
 
   return {
+    assets,
+    about,
+    collections,
+    home,
     meta,
     navigation,
-    preloader
+    preloader,
   }
 }
 
 app.get('/', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
-  const home = await api.getSingle('h')
-  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
-    fetchLinks: 'product.image'
-  })
-
 
   res.render('pages/home', {
-    ...defaults,
-    collections,
-    home
+    ...defaults
   })
 })
 
 app.get('/about', async (req, res) => {
   const api = await initApi(req)
-  const about = await api.getSingle('about')
   const defaults = await handleRequest(api)
 
   res.render('pages/about', {
     ...defaults,
-    about
   })
 })
 
 app.get('/collections', async (req, res) => {
   const api = await initApi(req)
   const defaults = await handleRequest(api)
-  const home = await api.getSingle('h')
-  const { results: collections } = await api.query(Prismic.Predicates.at('document.type', 'collection'), {
-    fetchLinks: 'product.image'
-  })
-
-  // collections[0].data.products.forEach(product => {
-  //   console.log(product.products_product)
-  // })
 
   res.render('pages/collections', {
     ...defaults,
-    collections,
-    home
   })
 })
 
@@ -125,7 +147,7 @@ app.get('/detail/:uid', async (req, res) => {
 
   res.render('pages/detail', {
     ...defaults,
-    product,
+    product
   })
 })
 

@@ -1,7 +1,10 @@
 .about__gallery {
   position: relative;
   height: 58.6rem;
-  margin: 20rem 0;
+  margin: 15rem 0;
+  pointer-events: none;
+
+  visibility: hidden;
 
   &:first-child {
     margin-top: 0;
@@ -16,6 +19,9 @@
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
+
+  opacity: 0;
+
 
   display: flex;
   align-items: center;

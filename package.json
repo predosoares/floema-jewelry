@@ -34,6 +34,7 @@
     "mini-css-extract-plugin": "^2.1.0",
     "nodemon": "^2.0.12",
     "postcss-loader": "^6.1.1",
+    "prefix": "^1.0.0",
     "pug": "^3.0.2",
     "raw-loader": "^4.0.2",
     "sass": "^1.37.0",
@@ -55,6 +56,10 @@
     "lodash": "^4.17.21",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
-    "prismic-dom": "^2.2.6"
+    "normalize-wheel": "^1.0.1",
+    "ogl": "^0.0.73",
+    "path": "^0.12.7",
+    "prismic-dom": "^2.2.6",
+    "ua-parser-js": "^0.7.28"
   }
 }

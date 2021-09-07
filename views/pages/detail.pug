@@ -4,10 +4,10 @@ block variables
   - var template = "detail"
 
 block content
-  .detail
+  .detail(data-background="#bc978c" data-color="#f9f1e7")
     .detail__wrapper
       figure.detail__media
-        img.detail__media__image(alt=product.data.image.alt src=product.data.image.url)
+        img.detail__media__image(alt=product.data.image.alt data-src=product.data.image.url)
 
       .detail__information
         p.detail__information__collection=product.data.collection.data.title
@@ -36,7 +36,8 @@ block content
                 span.detail__information__item__description=item.informations_description
 
           a.detail__information__link(href=product.data.link_url.url target="_blank")=product.data.link_text
-           
-    button.detail__button Close
+
+    a.detail__button(href=Link(home.data.collection)) Close
       svg.detail__button__icon(viewBox="0 0 124 60"  xmlns="http://www.w3.org/2000/svg")
-        path(stroke="white" fill="none" d="M62 59.5C95.9655 59.5 123.5 46.2924 123.5 30C123.5 13.7076 95.9655 0.5 62 0.5C28.0345 0.5 0.5 13.7076 0.5 30C0.5 46.2924 28.0345 59.5 62 59.5Z" )
+        path(stroke="currentColor" fill="none" d="M62 59.5C95.9655 59.5 123.5 46.2924 123.5 30C123.5 13.7076 95.9655 0.5 62 0.5C28.0345 0.5 0.5 13.7076 0.5 30C0.5 46.2924 28.0345 59.5 62 59.5Z" )
+        path.detail__link__icon__path(stroke="#ffc400" fill="none" d="M62 59.5C95.9655 59.5 123.5 46.2924 123.5 30C123.5 13.7076 95.9655 0.5 62 0.5C28.0345 0.5 0.5 13.7076 0.5 30C0.5 46.2924 28.0345 59.5 62 59.5Z" )
