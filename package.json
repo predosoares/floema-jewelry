@@ -5,13 +5,17 @@
   "author": "Pedro Henrique Soares",
   "license": "ISC",
   "private": false,
+  "engines": {
+    "yarn": "1.22.10"
+  },
   "scripts": {
     "backend:build": "node app.js",
     "backend:development": "nodemon app.js",
     "frontend:build": "webpack  --progress --config webpack.config.build.js",
     "frontend:development": "webpack serve --progress --config webpack.config.development.js",
-    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
-    "production": "yarn frontend:build && yarn backend:build"
+    "dev": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\"",
+    "build": "webpack  --progress --config webpack.config.build.js",
+    "start": "node.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
