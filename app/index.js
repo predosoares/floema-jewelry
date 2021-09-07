@@ -115,11 +115,11 @@ class App {
       this.content.innerHTML = divContent.innerHTML
 
       this.canvas.onChangeEnd(this.template)
-      // this.onResize()
 
       this.page = this.pages[this.template]
 
       this.page.create()
+      this.onResize()
 
       this.page.show()
 

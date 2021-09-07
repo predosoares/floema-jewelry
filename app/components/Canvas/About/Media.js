@@ -53,9 +53,6 @@ export default class Media {
     })
 
     this.mesh.setParent(this.scene)
-
-    // console.log(this.mesh)
-
   }
 
   createBounds({ sizes })
@@ -129,11 +126,6 @@ export default class Media {
 
   updateX (x = 0) {
     this.x = (this.bounds.left + x) / window.innerWidth
-
-    console.log('Sizes: ',  (-this.sizes.width ))
-    console.log('Scale X: ', (this.mesh.scale.x ))
-    console.log('X: ', (this.x * this.sizes.width))
-    console.log('Extra: ',this.extra)
 
     this.mesh.position.x = (-this.sizes.width / 2) + (this.mesh.scale.x / 2) + (this.x * this.sizes.width) + this.extra
   }
